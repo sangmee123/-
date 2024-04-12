@@ -4,8 +4,8 @@ import time
 import json
 from models import Images
 
-SECRET_KEY = "d1ZGemRIU2V0bFNTd2lkSUFNeG9ualBGdWtaSXptQ1c="
-OCR_URL = "https://83cp3mih0e.apigw.ntruss.com/custom/v1/29483/345ba9ece7db9b07eeeba3b0b32f252903887b5c2b5408ebfa3a0178fa9f371f"
+# SECRET_KEY = 
+# OCR_URL = 
 
 def ocr_header(fn):
     def set_header(**kwargs):

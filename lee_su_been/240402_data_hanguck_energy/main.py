@@ -24,9 +24,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-END_POINT = 'http://openapi.kepco.co.kr/service/dispersedGenerationService/getDispersedGerSearch'
-ENCODING = "QFe9f5oRsATvM5PcpU4oZB4z%2FY8zR%2F5UJnYnkdPHK8vs10UuV0zUzSV%2BGTw0SJSMgUFDM1Q4WrDoqEl1QR5PmA%3D%3D"
-DECODING = "QFe9f5oRsATvM5PcpU4oZB4z/Y8zR/5UJnYnkdPHK8vs10UuV0zUzSV+GTw0SJSMgUFDM1Q4WrDoqEl1QR5PmA=="
+# END_POINT = 
+# ENCODING = 
+# DECODING =  
 
 
 @ROUTER.get('/')
