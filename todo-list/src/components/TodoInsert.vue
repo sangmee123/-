@@ -7,7 +7,7 @@
 <script>
 export default {
   props: {
-    onCreates: Function,
+    onCreate: Function,
   },
   data() {
     return {

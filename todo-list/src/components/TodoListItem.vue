@@ -1,5 +1,5 @@
 <template lang="pug">
-div.list
+.list
     input(:id="item.id" type="checkbox" v-model="isCheck" :class="{ hide: !isHide }")    
     label(:for="item.id"  :class="{ checked: isCheck, hide: !isHide }") {{ item.content }}
 
@@ -42,9 +42,6 @@ export default {
       this.onEdit()
       this.onUpdate(itemId, text)
     },
-  },
-  created() {
-    console.log('isHide:', this.isHide)
   },
 }
 </script>

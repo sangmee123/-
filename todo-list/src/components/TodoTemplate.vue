@@ -10,6 +10,7 @@ div
 <script>
 import TodoInsert from '../components/TodoInsert.vue'
 import TodoList from '../components/TodoList.vue'
+import axios from 'axios'
 
 export default {
   name: 'TodoApp',
@@ -19,21 +20,34 @@ export default {
   },
   data() {
     return {
-      todos: [
-        { id: 0, content: 'vue 공부하기' },
-        { id: 1, content: '퇴근하기' },
-        { id: 2, content: '블로그 글 남기기' },
-        { id: 3, content: '점심 먹기' },
-      ],
+      todos: [],
     }
   },
+  mounted() {
+    // 컴포넌트가 마운트될 때 getTodo 메서드 호출
+    this.getTodo()
+  },
   methods: {
+    getTodo() {
+      axios
+        .get('/api/lists')
+        .then(response => {
+          this.todos = response.data
+        })
+        .catch(error => {
+          alert('데이터를 불러올 수 없습니다.')
+          console.log(error)
+        })
+        .finally(() => {
+          console.log('항상 마지막에 실행')
+        })
+    },
     onCreate(text) {
-      const todo = {
-        id: this.todos.length + 1,
-        content: text,
-      }
-      this.todos.push(todo)
+      const newTodoItem = { content: text }
+      axios
+        .post('/api/add_todo', newTodoItem)
+        .then(() => console.log('데이터 추가 완료', newTodoItem))
+        .catch(error => console.log(error))
     },
     onUpdate(id, text) {
       this.todos[id].content = text
