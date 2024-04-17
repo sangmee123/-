@@ -25,14 +25,15 @@ export default {
   },
   mounted() {
     // 컴포넌트가 마운트될 때 getTodo 메서드 호출
-    this.getTodo()
+    this.onRead()
   },
   methods: {
-    getTodo() {
+    onRead() {
       axios
         .get('/api/lists')
         .then(response => {
           this.todos = response.data
+          console.log('현재 todos', this.todos)
         })
         .catch(error => {
           alert('데이터를 불러올 수 없습니다.')
@@ -43,15 +44,40 @@ export default {
       const newTodoItem = { content: text }
       axios
         .post('/api/add_todo', newTodoItem)
-        .then(() => console.log('데이터 추가 완료', newTodoItem))
-        .catch(error => console.log(error))
+        .then(() => {
+          console.log('데이터 생성 완료', newTodoItem)
+          this.onRead() // 데이터 생성 시 추가된 리스트 새롭게 불러오기
+        })
+        .catch(error => {
+          alert('데이터 생성 실패')
+          console.log(error)
+        })
     },
     onUpdate(id, text) {
-      this.todos[id].content = text
-      console.log('todos', this.todos)
+      const editedTodo = { content: text }
+      axios
+        .put(`/api/edit_todo/${id}`, editedTodo)
+        .then(() => {
+          console.log('데이터 수정 완료')
+          this.onRead() // 데이터 수정 시 수정된 리스트 새롭게 불러오기
+        })
+        .catch(error => {
+          alert('데이터 수정 실패')
+          console.log(error)
+        })
     },
     onDelete(id) {
-      this.todos = this.todos.filter(todo => todo.id !== id)
+      // this.todos = this.todos.filter(todo => todo.id !== id)
+      axios
+        .delete(`/api/delete_todo/${id}`)
+        .then(() => {
+          console.log('데이터 삭제 완료')
+          this.onRead() // 데이터 삭제 시 리스트 새롭게 불러오기
+        })
+        .catch(error => {
+          alert('데이터 삭제 실패')
+          console.log(error)
+        })
     },
   },
 }

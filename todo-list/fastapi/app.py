@@ -3,6 +3,7 @@ from database import EngineConn
 from model import TodoList as TodoListModel
 from schema import TodoList as TodoListSchema
 from starlette.middleware.cors import CORSMiddleware
+from sqlalchemy.sql import func
 
 # FastAPI 앱 생성
 app = FastAPI()
@@ -42,3 +43,25 @@ def create_todo(todo: TodoListSchema):
     session.commit()
     return new_todo
 
+# 기존 항목을 수정하는 엔드포인트
+@app.put("/api/edit_todo/{id}")
+def update_todo(id: int, todo: TodoListSchema):
+    edited_todo = session.query(TodoListModel).filter(TodoListModel.id == id).one_or_none()  
+    if edited_todo is None:
+        return {"error": "Todo not found"}
+    
+    edited_todo.content = todo.content
+    edited_todo.updated_at = func.now()  
+    session.add(edited_todo)
+    session.commit()
+    return edited_todo
+
+# 해당 항목을 삭제하는 엔드포인트
+@app.delete("/api/delete_todo/{id}")
+def delete_todo(id: int):
+    deleted_todo = session.query(TodoListModel).filter(TodoListModel.id == id).one_or_none()
+    if deleted_todo is None:
+        return {"error": "Todo not found"}
+    session.delete(deleted_todo)
+    session.commit()
+    return {"message": "Todo deleted"}
