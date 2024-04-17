@@ -37,7 +37,7 @@ def get_lists():
 # 새로운 항목을 추가하는 엔드포인트
 @app.post("/api/add_todo")
 def create_todo(todo: TodoListSchema):
-    new_todo = TodoListModel(content = todo.content)
+    new_todo = TodoListModel(content = todo.content, deleted_at = None)
     session.add(new_todo)
     session.commit()
     return new_todo

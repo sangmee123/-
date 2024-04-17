@@ -38,9 +38,6 @@ export default {
           alert('데이터를 불러올 수 없습니다.')
           console.log(error)
         })
-        .finally(() => {
-          console.log('항상 마지막에 실행')
-        })
     },
     onCreate(text) {
       const newTodoItem = { content: text }

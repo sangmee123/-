@@ -6,3 +6,4 @@ class TodoList(BaseModel):
     content: str = None
     created_at: datetime.datetime = None  
     updated_at: datetime.datetime = None
+    deleted_at: datetime.datetime = None
