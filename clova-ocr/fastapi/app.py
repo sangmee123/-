@@ -17,6 +17,9 @@ app.add_middleware(
 class ImgUrl(BaseModel):
     imgUrl: str = None
 
+api_url = ''
+secret_key = ''
+
 def load_api(img_url =None):
     request_json = {
         'images': [

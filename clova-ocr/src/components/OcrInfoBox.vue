@@ -53,6 +53,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          alert("데이터를 불러올 수 없습니다.");
           this.loading = false; // 오류 발생 시도 로딩 숨기기
           this.$emit("loading", this.loading);
         });
