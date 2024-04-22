@@ -82,6 +82,9 @@ module.exports = function (/* ctx */) {
         '/api': {
           target: 'http://127.0.0.1:8000', // 백엔드 서버 URL
           changeOrigin: true,
+          pathRewrite: {
+            "^/api": "",
+          },
         },
       },
     },

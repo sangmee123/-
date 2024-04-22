@@ -24,19 +24,19 @@ session = engine.sessionmaker()
 def root(): 
     return { "message": "Hello 123" }
 
-@app.get("/api/home")
+@app.get("/home")
 def home(): 
     return { "message": "home" }
 
 # 모든 항목을 불러오는 엔드포인트
-@app.get("/api/lists")
+@app.get("/lists")
 def get_lists():
     lists = session.query(TodoListModel).all()
     return lists
 
 
 # 새로운 항목을 추가하는 엔드포인트
-@app.post("/api/add_todo")
+@app.post("/add_todo")
 def create_todo(todo: TodoListSchema):
     new_todo = TodoListModel(content = todo.content, deleted_at = None)
     session.add(new_todo)
@@ -44,7 +44,7 @@ def create_todo(todo: TodoListSchema):
     return new_todo
 
 # 기존 항목을 수정하는 엔드포인트
-@app.put("/api/edit_todo/{id}")
+@app.put("/edit_todo/{id}")
 def update_todo(id: int, todo: TodoListSchema):
     edited_todo = session.query(TodoListModel).filter(TodoListModel.id == id).one_or_none()  
     if edited_todo is None:
@@ -57,7 +57,7 @@ def update_todo(id: int, todo: TodoListSchema):
     return edited_todo
 
 # 해당 항목을 삭제하는 엔드포인트
-@app.delete("/api/delete_todo/{id}")
+@app.delete("/delete_todo/{id}")
 def delete_todo(id: int):
     deleted_todo = session.query(TodoListModel).filter(TodoListModel.id == id).one_or_none()
     if deleted_todo is None:

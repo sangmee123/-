@@ -17,9 +17,6 @@ app.add_middleware(
 class ImgUrl(BaseModel):
     imgUrl: str = None
 
-api_url = ''
-secret_key = ''
-
 def load_api(img_url =None):
     request_json = {
         'images': [
@@ -36,17 +33,17 @@ def load_api(img_url =None):
 
     payload = json.dumps(request_json).encode('UTF-8')
     headers = {
-    'X-OCR-SECRET': secret_key,
+    'X-OCR-SECRET': ,
     'Content-Type': 'application/json'
     }
 
-    response = requests.request("POST", api_url, headers=headers, data = payload)
+    response = requests.request("POST", , headers=headers, data = payload)
 
     json_response = response.json()
     return json_response
 
 
-@app.get("/api/get_data")
+@app.get("/get_data")
 def get_data(request: Request):
     params = request.query_params
     imgUrl = params.get("imgUrl")
