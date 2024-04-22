@@ -1,7 +1,5 @@
 <template lang="pug">
 .infoBox
-    //- .loading-wrap(v-if="loading")
-    //-   .loading-spinner
     table
         tr(v-for="(item, id) in info" :key="item.id")
             td {{ item.label }}
