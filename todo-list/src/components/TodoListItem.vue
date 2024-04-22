@@ -1,11 +1,25 @@
 <template lang="pug">
 .list
-    input(:id="item.id" type="checkbox" v-model="isCheck" :class="{ hide: !isHide }")    
-    label(:for="item.id"  :class="{ checked: isCheck, hide: !isHide }") {{ item.content }}
+    input(
+      type="checkbox" 
+      :id="item.id" 
+      v-model="item.end_yn" 
+      @click="onCheck(item.id)" 
+      :class="{ hide: !isHide }"
+    )    
+    label(
+      :for="item.id"  
+      :class="{ checked: isCheck, hide: !isHide }"
+    ) {{ item.content }}
 
     div(class="editBox" :class="{ hide : isHide }")
         input(v-model="inputValue") 
-        q-btn(type="button" flat style="color: #FF0080" label="save" @click="onSubmit(item.id, inputValue)")
+        q-btn(
+          type="button" 
+          flat style="color: #FF0080" 
+          label="save" 
+          @click="onSubmit(item.id, inputValue)"
+        )
 
     div.btnBox(:class="{ hide : isEdit }")
         button(@click="onEdit")
@@ -15,6 +29,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'TodoListItem',
   components: {},
@@ -27,13 +43,26 @@ export default {
   },
   data() {
     return {
-      isCheck: false,
+      isCheck: this.item.end_yn,
       isHide: true,
       isEdit: false,
       inputValue: this.item.content,
     }
   },
   methods: {
+    onCheck(id) {
+      this.isCheck = !this.isCheck
+      const params = { end_yn: this.isCheck }
+      axios
+        .post(`/api/edit_check/${id}`, params)
+        .then(() => {
+          console.log('체크 성공')
+        })
+        .catch(error => {
+          alert('체크 실패')
+          console.log(error)
+        })
+    },
     onEdit() {
       this.isHide = !this.isHide
       this.isEdit = !this.isEdit

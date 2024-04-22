@@ -4,7 +4,11 @@ div
   TodoInsert(:onCreate="onCreate")
 
   q-scroll-area(style="height: 24rem;")
-      TodoList(:todos="todos", :onUpdate="onUpdate" :onDelete="onDelete")
+      TodoList(
+        :todos="todos", 
+        :onUpdate="onUpdate" 
+        :onDelete="onDelete" 
+      )
 </template>
 
 <script>

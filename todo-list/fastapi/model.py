@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from sqlalchemy.sql import func
 from sqlalchemy.orm import declarative_base
 
@@ -9,6 +9,7 @@ class TodoList(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     content = Column(String(255))
+    end_yn = Column(Boolean, default=False)
     created_at = Column(DateTime, nullable=False, default=func.now())
     updated_at = Column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
     deleted_at = Column(DateTime)

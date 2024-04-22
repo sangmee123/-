@@ -28,12 +28,12 @@ def root():
 def home(): 
     return { "message": "home" }
 
+
 # 모든 항목을 불러오는 엔드포인트
 @app.get("/lists")
-def get_lists():
+def read_todos():
     lists = session.query(TodoListModel).all()
     return lists
-
 
 # 새로운 항목을 추가하는 엔드포인트
 @app.post("/add_todo")
@@ -55,6 +55,17 @@ def update_todo(id: int, todo: TodoListSchema):
     session.add(edited_todo)
     session.commit()
     return edited_todo
+
+# 해당 항목을 체크하는 엔드포인트
+@app.post("/edit_check/{id}")
+def update_check(id: int, todo:TodoListSchema):
+    edited_check = session.query(TodoListModel).filter(TodoListModel.id == id).one_or_none()
+    if edited_check is None:
+        return {"error": "Todo not found"}
+    edited_check.end_yn = todo.end_yn
+    session.add(edited_check)
+    session.commit()
+    return edited_check
 
 # 해당 항목을 삭제하는 엔드포인트
 @app.delete("/delete_todo/{id}")

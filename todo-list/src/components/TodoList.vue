@@ -1,6 +1,12 @@
 <template lang="pug"> 
 div
-    TodoListItem(v-for="item in todos" :key="item.id" :item="item" :onUpdate="onUpdate" :onDelete="onDelete")
+    TodoListItem(
+      v-for="item in todos" 
+      :key="item.id" 
+      :item="item" 
+      :onUpdate="onUpdate" 
+      :onDelete="onDelete" 
+    )
 </template>
 
 <script>
@@ -18,6 +24,11 @@ export default {
     },
     onUpdate: Function,
     onDelete: Function,
+  },
+  methods: {
+    // handleCheck(isCheck) {
+    //   this.$emit('handleCheck', isCheck)
+    // },
   },
 }
 </script>
