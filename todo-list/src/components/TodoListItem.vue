@@ -2,12 +2,14 @@
 .list
     input(
       type="checkbox" 
+      :disabled="isPastDate"
       :id="item.id" 
       v-model="item.end_yn" 
       @click="onCheck(item.id)" 
       :class="{ hide: !isHide }"
     )    
     label(
+      :disabled="isPastDate"
       :for="item.id"  
       :class="{ checked: isCheck, hide: !isHide }"
     ) {{ item.content }}
@@ -21,7 +23,7 @@
           @click="onSubmit(item.id, inputValue)"
         )
 
-    div.btnBox(:class="{ hide : isEdit }")
+    div.btnBox(:class="{ hide : isEdit || isPastDate }")
         button(@click="onEdit")
             img(src="../assets/images/free-icon-edit.png")     
         button(@click="onDelete(item.id)") 
@@ -35,6 +37,7 @@ export default {
   name: 'TodoListItem',
   components: {},
   props: {
+    isPastDate: Boolean,
     item: {
       type: Object,
     },
@@ -85,7 +88,7 @@ export default {
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 0.5rem;
+    padding: 1rem;
     &:nth-child(even)
         background: #FBF2EF;
     input
@@ -111,5 +114,5 @@ export default {
         border: none;
         cursor: pointer;
         img
-            width: 1.5rem;
+            width: 1.3rem;
 </style>

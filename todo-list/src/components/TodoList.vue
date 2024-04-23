@@ -1,6 +1,7 @@
 <template lang="pug"> 
 div
     TodoListItem(
+      :isPastDate="isPastDate"
       v-for="item in todos" 
       :key="item.id" 
       :item="item" 
@@ -18,17 +19,13 @@ export default {
     TodoListItem,
   },
   props: {
+    isPastDate: Boolean,
     todos: {
       type: Array,
       default: () => [],
     },
     onUpdate: Function,
     onDelete: Function,
-  },
-  methods: {
-    // handleCheck(isCheck) {
-    //   this.$emit('handleCheck', isCheck)
-    // },
   },
 }
 </script>
