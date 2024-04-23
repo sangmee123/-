@@ -6,6 +6,10 @@
 
 # 2. Clova OCR 프로젝트
 
+이미지 안 보일 경우, 노션 README 정리한 글 링크
+<br>
+https://www.notion.so/Naver-CLOVA-OCR-ID-Card-Check-688c1405862b40c3a941bd2617726d45?pvs=4
+
 이미지 속 텍스트를 인식하고 추출할 수 있는 기능을 제공하는 API
 
 ### 사용 기술 스택
