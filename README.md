@@ -2,11 +2,13 @@
 
 ## DB CRUD 연동
 
+## 네이버 소셜 로그인
+
 <br>
 
 # 2. Clova OCR 프로젝트
 
-이미지 안 보일 경우, 노션 README 정리한 글 링크
+화면 출력 이미지는 노션 README 정리한 글 참고 링크
 <br>
 https://www.notion.so/Naver-CLOVA-OCR-ID-Card-Check-688c1405862b40c3a941bd2617726d45?pvs=4
 
@@ -20,7 +22,7 @@ https://www.notion.so/Naver-CLOVA-OCR-ID-Card-Check-688c1405862b40c3a941bd261772
 
 ### 데이터 출력 성공
 
-<img src="images/데이터출력성공.png">
+<!-- <img src="images/데이터출력성공.png"> -->
 
 1. Send 버튼을 누를 시, 로딩 화면이 나타나며 해당 이미지 URL이 서버에 전송된다.
 2. 서버는 Naver Clova OCR API를 호출하여 신분증 이미지의 특정 영역에서 text를 읽어온 결과를 JSON객체로 반환한다.
@@ -28,7 +30,7 @@ https://www.notion.so/Naver-CLOVA-OCR-ID-Card-Check-688c1405862b40c3a941bd261772
 
 ### 데이터 출력 실패(서버 Off)
 
-<img src="images/데이터출력실패.png">
+<!-- <img src="images/데이터출력실패.png"> -->
 
 1. Send 버튼을 누를 시, 서버가 Off 돼 있어 해당 이미지 URL이 서버에 전송되지 않는다.
 2. 로딩 화면이 나타나며 팝업창이 뜬다.
