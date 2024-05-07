@@ -1,12 +1,14 @@
 <template lang="pug">
 div
-  Calendar(class="calendar" @selectedDateTodos="onDate") 
+  UserBox(:username='username')
+  Calendar(class="calendar" @selectedDateTodos="onDate" :memberId="memberId") 
   .boxSize 
     .title To do List  
     TodoInsert(:onCreate="onCreate")
 
     q-scroll-area(style="height: 24rem;")
         TodoList(
+          :memberId="memberId"
           :isPastDate="isPastDate"
           :todos="todos", 
           :onUpdate="onUpdate" 
@@ -15,15 +17,18 @@ div
 </template>
 
 <script>
-import Calendar from '../components/Calendar.vue'
-import TodoInsert from '../components/TodoInsert.vue'
-import TodoList from '../components/TodoList.vue'
+import Calendar from './Calendar.vue'
+import TodoInsert from './TodoInsert.vue'
+import TodoList from './TodoList.vue'
 import axios from 'axios'
 import { getCurrentDate } from '../utils/date'
+import { mapState } from 'vuex'
+import UserBox from '../components/UserBox.vue'
 
 export default {
   name: 'TodoApp',
   components: {
+    UserBox,
     Calendar,
     TodoInsert,
     TodoList,
@@ -33,6 +38,8 @@ export default {
   },
   data() {
     return {
+      username: '',
+      memberId: null,
       todos: [],
       isPastDate: false,
     }
@@ -40,6 +47,9 @@ export default {
   mounted() {
     // 컴포넌트가 마운트될 때 getTodo 메서드 호출
     this.onRead()
+  },
+  computed: {
+    ...mapState(['userInfo']),
   },
   methods: {
     onDate(selectedTodos, selectedDate) {
@@ -54,11 +64,20 @@ export default {
       }
     },
     onRead() {
+      const token = localStorage.getItem('token')
       axios
-        .get('/api/lists')
+        .get('/api/lists', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then(response => {
-          this.todos = response.data
+          this.todos = response.data.lists
           console.log('현재 todos', this.todos)
+
+          const user = response.data.user
+          this.username = user.user_name
+          this.memberId = user.user_id
         })
         .catch(error => {
           alert('데이터를 불러올 수 없습니다.')
@@ -66,7 +85,10 @@ export default {
         })
     },
     onCreate(text) {
-      const newTodoItem = { content: text }
+      const newTodoItem = {
+        member: this.memberId,
+        content: text,
+      }
       axios
         .post('/api/add_todo', newTodoItem)
         .then(() => {
@@ -79,7 +101,10 @@ export default {
         })
     },
     onUpdate(id, text) {
-      const editedTodo = { content: text }
+      const editedTodo = {
+        member: this.memberId,
+        content: text,
+      }
       axios
         .put(`/api/edit_todo/${id}`, editedTodo)
         .then(() => {
@@ -92,7 +117,6 @@ export default {
         })
     },
     onDelete(id) {
-      // this.todos = this.todos.filter(todo => todo.id !== id)
       axios
         .delete(`/api/delete_todo/${id}`)
         .then(() => {
@@ -108,7 +132,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .calendar
   background-color: #F6D8CE;
   width: 13rem;

@@ -23,7 +23,7 @@
           @click="onSubmit(item.id, inputValue)"
         )
 
-    div.btnBox(:class="{ hide : isEdit || isPastDate }")
+    div.btnBox(v-if="!isCheck" :class="{ hide : isEdit || isPastDate }")
         button(@click="onEdit")
             img(src="../assets/images/free-icon-edit.png")     
         button(@click="onDelete(item.id)") 
@@ -37,6 +37,7 @@ export default {
   name: 'TodoListItem',
   components: {},
   props: {
+    memberId: Number,
     isPastDate: Boolean,
     item: {
       type: Object,
@@ -55,9 +56,13 @@ export default {
   methods: {
     onCheck(id) {
       this.isCheck = !this.isCheck
-      const params = { end_yn: this.isCheck }
+      const params = {
+        end_yn: this.isCheck,
+        member: this.memberId,
+      }
+      console.log(params)
       axios
-        .post(`/api/edit_check/${id}`, params)
+        .put(`/api/edit_todo/${id}`, params)
         .then(() => {
           console.log('체크 성공')
         })
@@ -78,7 +83,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .checked
     text-decoration: line-through;
 .hide

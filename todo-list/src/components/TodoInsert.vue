@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 form
     display: flex;
     background: #495057;

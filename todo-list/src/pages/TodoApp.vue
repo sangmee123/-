@@ -4,20 +4,20 @@
 </template>
 
 <script>
-import Calendar from '../components/Calendar.vue'
+import Login from './Login.vue'
 import TodoTemplate from '../components/TodoTemplate.vue'
 
 export default {
   name: 'TodoApp',
   components: {
-    Calendar,
+    Login,
     TodoTemplate,
   },
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .todoApp
   text-align: center;
-  margin-top: 5rem;
+  margin-top: 3rem;
 </style>

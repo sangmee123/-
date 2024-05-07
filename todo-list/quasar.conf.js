@@ -86,6 +86,11 @@ module.exports = function (/* ctx */) {
             '^/api': '',
           },
         },
+        '/v1': {
+          target: 'https://openapi.naver.com/',
+          changeOrigin: true,
+          logLevel: 'debug',
+        },
       },
     },
 

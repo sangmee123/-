@@ -1,6 +1,7 @@
 <template lang="pug"> 
 div
     TodoListItem(
+      :memberId="memberId"
       :isPastDate="isPastDate"
       v-for="item in todos" 
       :key="item.id" 
@@ -19,6 +20,7 @@ export default {
     TodoListItem,
   },
   props: {
+    memberId: Number,
     isPastDate: Boolean,
     todos: {
       type: Array,
@@ -30,4 +32,4 @@ export default {
 }
 </script>
 
-<style lang="stylus"></style>
+<style lang="stylus" scoped></style>

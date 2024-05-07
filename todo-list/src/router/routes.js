@@ -1,19 +1,8 @@
 const routes = [
-  {
-    path: '/',
-    component: () => import('pages/TodoApp.vue'),
-    // component: () => import('layouts/MainLayout.vue'),
-    // children: [
-    //   { path: '', component: () => import('pages/TodoApp.vue') }
-    // ]
-  },
-
-  // // Always leave this as last one,
-  // // but you can also remove it
-  // {
-  //   path: '*',
-  //   component: () => import('pages/Error404.vue')
-  // }
+  { path: '/', component: () => import('pages/Login.vue') },
+  { path: '/login', component: () => import('pages/TodoApp.vue') },
+  { path: '/login/naver', component: () => import('pages/NaverAccess.vue') },
+  { path: '/register', component: () => import('pages/Membership.vue') },
 ]
 
 export default routes

@@ -8,7 +8,9 @@ import { getCurrentDate } from '../utils/date'
 
 export default {
   name: 'Calendar',
-
+  props: {
+    memberId: Number,
+  },
   data() {
     return { currentDate: null }
   },
@@ -23,7 +25,10 @@ export default {
       this.currentDate = getCurrentDate(today)
     },
     onSelectedDate(e) {
-      const params = { selectedDate: e.target.value }
+      const params = {
+        member: this.memberId,
+        selectedDate: e.target.value,
+      }
       axios
         .get('/api/selected_date', { params })
         .then(response => {
@@ -38,7 +43,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 input
     background: none;
     font-size: 15px;
